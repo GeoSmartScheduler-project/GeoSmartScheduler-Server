@@ -21,32 +21,18 @@ if(isset($_GET['id_twt']) ) {
   $tweets = array();
   if(mysqli_num_rows($result)) {
     while($tweet = mysqli_fetch_assoc($result)) {
-      $tweets[] = array('tweet'=>$tweet);
+      $Arraytweets[] = array('tweet'=>$tweet);
     }
   }
   //TODO:create output to be sent in json to device
   //algorithm START
   if($format == 'json') {
+  	header('HTTP/1.1 200 OK');
     header('Content-type: application/json');
-    echo json_encode(array('posts'=>$posts));
+    echo json_encode(array('tweet'=>$Arraytweets));
   }
   else {
-    header('Content-type: text/xml');
-    echo '';
-    foreach($posts as $index => $post) {
-      if(is_array($post)) {
-        foreach($post as $key => $value) {
-          echo '<',$key,'>';
-          if(is_array($value)) {
-            foreach($value as $tag => $val) {
-              echo '<',$tag,'>',htmlentities($val),'</',$tag,'>';
-            }
-          }
-          echo '</',$key,'>';
-        }
-      }
-    }
-    echo '';
+    echo header("HTTP/1.1 404 Not Found");
   }
   //algorithm END
   

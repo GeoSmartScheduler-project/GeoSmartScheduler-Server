@@ -1,16 +1,17 @@
 <?php
 ini_set('display_errors', 1);
-require_once('utils/config.php'); 
-require_once ('dbQuery/db_traces_functions.php');
+define('__ROOT__', dirname(dirname(__FILE__)));
+require_once(__ROOT__.'/utils/config.php'); 
+require_once (__ROOT__.'/dbQuery/db_traces_functions.php');
 
-$x = new DB_Traces_Functions();
-$result=$x->getTraceOfTweets(0);
-$row =$result->fetch_array();
-printf ("AQUI %s (%s)\n", $row[0], $row[1]);
-//mysqli_store_result();
-//mysqli_fetch_array($results);
-$result->free();
-
+$response = http_get("http://127.0.0.1/server/request.php?id_twt=327476318285484032", array("timeout"=>1), $info);
+if ($response)
+{
+print_r($info);
+}
+else {
+	echo "ERROR";
+}
 ?>
 
 
