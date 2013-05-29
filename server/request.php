@@ -15,10 +15,21 @@ if(isset($_GET['id_twt']) ) {
   
   //$format = strtolower($_GET['format']) == 'json' ? 'json' : 'xml'; //xml is the default
   //TODO:usar un array the id_twt para soportar peticiones multiples
-  $id_twt = $_GET['id_twt']; 
-  // Get tweet requested
-  $result=$dbPending->getPendingTweet($id_twt);
-  /* create  array of the records */
+  $array_id_twt = $_GET['id_twt']; 
+  $NumTweets=0;
+
+}
+else {
+	
+	$post=json_decode($_POST,true);
+	//var_dump($post);
+	$array_id_twt = $post['array_id_twt'];
+	$NumTweets=$post['num_tweets'];
+	
+}
+
+// Get tweet requested
+  $result=$dbPending->getArrayPendingTweet($NumTweets,$array_id_twt);
   $tweets = array();
   $NumTweets=mysqli_num_rows($result);
   if($NumTweets) {
@@ -48,5 +59,5 @@ if(isset($_GET['id_twt']) ) {
   //TODO:send the info to the device
   
   
-}
+
 ?>

@@ -39,6 +39,29 @@ class DB_pendingTweets_Functions {
     }
     
     /**
+     * 
+     * @param int $NumTweets number of tweets requested
+     * @param array $array_id_twt associative array with the id of the tweets requested. 
+     * 		the associative array should be like id0 => id_tweet
+     * @return Return set of tweets from pending tweets if it succes or "false" if it fails
+     */
+    public function getArrayPendingTweet($NumTweets, $array_id_twt) {
+    	
+    	for ($i=0; $i<$NumTweets; $i++){
+    			if($i) {
+    				$list_id_twt = $array_id_twt['id'.$i];
+    			}
+    			else{
+    				$list_id_twt = $list_id_twt.",".$array_id_twt['id'.$i];
+    			}
+    		
+    	}
+    	//get a set of rows from the database
+    	$result = mysqli_query($this->dblink, "SELECT * FROM `pending_tweets` WHERE `id_twt` IN ('$id_twt')")
+    	or die(mysqli_error($this->dblink));
+    	return $result;
+    }
+    /**
      * Delete a tweet from pending tweets queue
      * 
      * @param  string $id_twt id of the tweet to be get from the pendings tweets
