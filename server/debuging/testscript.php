@@ -1,16 +1,16 @@
 <?php
 ini_set('display_errors', 1);
-define('__ROOT__', dirname(dirname(__FILE__)));
-require_once(__ROOT__.'/utils/config.php'); 
-require_once (__ROOT__.'/dbQuery/db_traces_functions.php');
+ 
+$ch = curl_init("http://127.0.0.1/server/request.php?id_twt=327476318285484032");
+curl_setopt($ch, CURLOPT_HEADER, false);
+curl_setopt($ch, URLOPT_RETURNTRANSFER, true);
 
-$response = http_get("http://127.0.0.1/server/request.php?id_twt=327476318285484032", array("timeout"=>1), $info);
-if ($response)
+$json=curl_exec($ch);
+$http_status = curl_getinfo($feed, CURLINFO_HTTP_CODE);
+curl_close($ch);
+if ($http_status== "200")
 {
-print_r($info);
-}
-else {
-	echo "ERROR";
+		return $json;
 }
 ?>
 
