@@ -12,10 +12,9 @@ if (isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["regId"])) {
     $email = $_POST["email"];
     $gcm_regid = $_POST["regId"]; // GCM Registration ID
     // Store user details in db
-    define('__ROOT__', dirname(__FILE__));
-    echo __ROOT__;
-    include_once (__ROOT__.'/dbQuery/db_GCM_functions.php');
-    include_once (__ROOT__.'/utils/GCM.php');
+    $root= dirname(__FILE__);
+    require_once ($root.'/dbQuery/db_GCM_functions.php');
+    require_once ($root.'/utils/GCM.php');
 
     $db = new DB_GCM_Functions();
     $gcm = new GCM();

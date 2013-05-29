@@ -8,7 +8,7 @@ class DB_Twitter_Functions {
     //put your code here
     // constructor
     function __construct() {
-        define('__ROOT__', dirname(dirname(__FILE__)));
+        $root=dirname(dirname(__FILE__));
         include_once (__ROOT__.'/dbQuery/db_connect.php');
         // connecting to database
         $this->db = new DB_Connect();

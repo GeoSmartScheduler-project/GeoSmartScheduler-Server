@@ -7,16 +7,22 @@ class DB_pendingTweets_Functions {
     //put your code here
     // constructor
     function __construct() {
-        define('__ROOT__', dirname(dirname(__FILE__)));
-        include_once (__ROOT__.'/dbQuery/db_connect.php');
+        $root=dirname(dirname(__FILE__));
+        //include_once (__ROOT__.'/dbQuery/db_connect.php');
         // connecting to database
-        $this->db = new DB_Connect();
-        $this->dblink=$this->db->connect();
+       // $this->db = new DB_Connect();
+       // $this->dblink=$this->db->connect();
+        require_once($root.'/utils/config.php');
+        $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+        if ($mysqli->connect_errno) {
+        	echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+        }
+        $this->dblink= $mysqli;
     }
 
     // destructor
     function __destruct() {
-        $this->db->close($this->dblink);
+        mysqli_close($this->dblink);
     }
 
  	/**

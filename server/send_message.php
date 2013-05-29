@@ -6,8 +6,8 @@
 if (isset($_GET["regId"]) && isset($_GET["message"])) {
     $regId = $_GET["regId"];
     $message = $_GET["message"];
-     define('__ROOT__', dirname(__FILE__));
-     include_once (__ROOT__.'/utils/GCM.php');
+     $root= dirname(__FILE__);
+     require_once ($root.'/utils/GCM.php');
     
     $gcm = new GCM();
 

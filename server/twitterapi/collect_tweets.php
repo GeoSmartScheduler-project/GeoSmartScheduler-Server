@@ -1,9 +1,9 @@
 <?php
 ini_set('display_errors', 1);
-define('__ROOT__', dirname(dirname(__FILE__)));
-require_once(__ROOT__.'/utils/config.php'); 
-require_once (__ROOT__.'/utils/TwitterAPIExchange.php');
-require_once (__ROOT__.'/dbQuery/db_twitter_functions.php');
+$root=dirname(dirname(__FILE__));
+require_once($root.'/utils/config.php'); 
+require_once($root.'/utils/TwitterAPIExchange.php');
+require_once($root.'/dbQuery/db_twitter_functions.php');
 
 /** Set access tokens here - see: https://dev.twitter.com/apps/ **/
 $settings = array(

@@ -1,9 +1,9 @@
 <?php
 ini_set('display_errors', 1);
-define('__ROOT__', dirname(dirname(__FILE__)));
-require_once(__ROOT__.'/utils/config.php'); 
-require_once(__ROOT__.'/utils/TimeFunctions.php');
-require_once (__ROOT__.'/dbQuery/db_traces_functions.php');
+$root=dirname(dirname(__FILE__));
+require_once($root.'/utils/config.php'); 
+require_once($root.'/utils/TimeFunctions.php');
+require_once($root.'/dbQuery/db_traces_functions.php');
 
 
 $idtwt = null;

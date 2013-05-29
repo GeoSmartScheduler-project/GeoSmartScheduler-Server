@@ -7,8 +7,8 @@ class DB_Traces_Functions {
     //put your code here
     // constructor
     function __construct() {
-        define('__ROOT__', dirname(dirname(__FILE__)));
-        include_once (__ROOT__.'/dbQuery/db_connect.php');
+        $root=dirname(dirname(__FILE__));
+        require_once ($root.'/dbQuery/db_connect.php');
         // connecting to database
         $this->db = new DB_Connect();
         $this->dblink=$this->db->connect();

@@ -16,8 +16,8 @@ class DB_Connect {
  
     // Connecting to database
     public function connect() {
-    	define('__ROOT__', dirname(dirname(__FILE__)));
-        require_once (__ROOT__.'/utils/config.php');
+    	$root=dirname(dirname(__FILE__));
+        require_once($root.'/utils/config.php');
         /*
         // connecting to mysql
         $con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);

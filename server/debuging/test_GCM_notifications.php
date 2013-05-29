@@ -94,7 +94,8 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        include_once 'dbQuery/db_GCM_functions.php';
+        $root=dirname(dirname(__FILE__));
+        require_once ($root.'/dbQuery/db_GCM_functions.php');
         $db = new DB_GCM_Functions();
         $users = $db->getAllUsers();
         if ($users != false)

@@ -2,14 +2,15 @@
 /* require the user as the parameter */
 //http://localhost:8080/sample1/webservice1.php?user=1
 ini_set('display_errors', 1);
-define('__ROOT__', dirname(__FILE__));
-require_once(__ROOT__.'/utils/config.php'); 
-require_once (__ROOT__.'/dbQuery/db_pendingTweets_functions.php');
-require_once (__ROOT__.'/utils/utilsLog.php');
+//$root= dirname(__FILE__);
+$root=dirname(__FILE__);
+require_once ($root.'/utils/config.php'); 
+require_once ($root.'/dbQuery/db_pendingTweets_functions.php');
+require_once ($root.'/utils/utilsLog.php');
 
 
 $dbPending = new DB_pendingTweets_Functions();
-
+//isset($_GET['id_twt'])
 if(isset($_GET['id_twt']) ) {
   
   //$format = strtolower($_GET['format']) == 'json' ? 'json' : 'xml'; //xml is the default
@@ -27,6 +28,8 @@ if(isset($_GET['id_twt']) ) {
   }
   //TODO:create output to be sent in json to device
   //algorithm START
+ if (!headers_sent($filename, $linenum))
+ {
   if($NumTweets) {
   	header('HTTP/1.1 200 OK');
     header('Content-type: application/json');
@@ -35,6 +38,11 @@ if(isset($_GET['id_twt']) ) {
   else {
     echo header("HTTP/1.1 404 Not Found");
   }
+ }
+ else{
+ 	echo "Headers already sent in $filename on line $linenum\n" .
+ 	exit;
+ }
   //algorithm END
   
   //TODO:send the info to the device

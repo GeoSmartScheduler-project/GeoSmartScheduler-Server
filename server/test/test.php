@@ -1,12 +1,12 @@
 <?php
 ini_set('display_errors', 1);
-define('__ROOT__', dirname(dirname(__FILE__)));
-require_once(__ROOT__.'/utils/config.php'); 
-require_once (__ROOT__.'/dbQuery/db_traces_functions.php');
-require_once (__ROOT__.'/dbQuery/db_pendingTweets_functions.php');
-require_once (__ROOT__.'/utils/utilsLog.php');
-require_once (__ROOT__.'/utils/GCM.php');
-require_once (__ROOT__.'/dbQuery/db_GCM_functions.php');
+$root=dirname(dirname(__FILE__));
+require_once($root.'/utils/config.php'); 
+require_once($root.'/dbQuery/db_traces_functions.php');
+require_once($root.'/dbQuery/db_pendingTweets_functions.php');
+require_once($root.'/utils/utilsLog.php');
+require_once($root.'/utils/GCM.php');
+require_once($root.'/dbQuery/db_GCM_functions.php');
 
  //NOTE: We can add a method to get the user registration id from the db and use it instead of the constant 
 $registatoin_id = USER_REGISTRATION_ID;
