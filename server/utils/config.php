@@ -2,9 +2,10 @@
 /**
  * Database config variables
  */
-define("DB_HOST", "localhost");
+define("DB_HOST", "127.0.0.1");
 define("DB_USER", "root");
-define("DB_PASSWORD", "908020");
+//define("DB_PASSWORD", "908020"); // para trabajar en ubuntu
+define("DB_PASSWORD", "");  //para trabajar en win7
 define("DB_DATABASE", "gss");
 
 /*

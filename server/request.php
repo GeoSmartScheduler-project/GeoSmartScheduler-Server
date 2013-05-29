@@ -14,7 +14,7 @@ if(isset($_GET['id_twt']) ) {
   
   //$format = strtolower($_GET['format']) == 'json' ? 'json' : 'xml'; //xml is the default
   //TODO:usar un array the id_twt para soportar peticiones multiples
-  $id_twt = intval($_GET['id_twt']); 
+  $id_twt = $_GET['id_twt']; 
   // Get tweet requested
   $result=$dbPending->getPendingTweet($id_twt);
   /* create  array of the records */
@@ -22,7 +22,7 @@ if(isset($_GET['id_twt']) ) {
   $NumTweets=mysqli_num_rows($result);
   if($NumTweets) {
     while($tweets = mysqli_fetch_assoc($result)) {
-      $Arraytweets[] = array('tweet_response'=>$tweet);
+      $Arraytweets[] = array('tweet_response'=>$tweets);
     }
   }
   //TODO:create output to be sent in json to device

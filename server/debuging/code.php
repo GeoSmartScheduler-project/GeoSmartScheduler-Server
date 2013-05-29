@@ -1,15 +1,22 @@
 <?php
+//require_once '../dbQuery/db_connect.php';
+/*$x = new DB_Connect();
+$bdcon=$x->connect();
+$x->close($bdcon);
 
-$ch = curl_init("http://127.0.0.1/server/request.php?id_twt=327476318285484032");
-curl_setopt($ch, CURLOPT_HEADER, false);
-curl_setopt($ch, URLOPT_RETURNTRANSFER, true);
+*/
 
-$json=curl_exec($ch);
-$http_status = curl_getinfo($feed, CURLINFO_HTTP_CODE);
-curl_close($ch);
-if ($http_status== "200")
-{
-	if ($return)
-	{	return $json; }
+//require_once(__ROOT__.'/utils/config.php');
+ini_set('display_errors', 1);
+define('__ROOT__', dirname(dirname(__FILE__)));
+require_once (__ROOT__.'/dbQuery/db_pendingTweets_functions.php');
+$dbPending = new DB_pendingTweets_Functions();
+$id_twt=intval(327476318285484032,10);
+$result=$dbPending->getPendingTweet((string)$id_twt);
+$NumTweets=mysqli_num_rows($result);
+if($NumTweets) {
+	while($tweets = mysqli_fetch_assoc($result)) {
+		echo 'tweet_response'.$tweets ;
+	}
 }
 ?>
