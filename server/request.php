@@ -2,13 +2,15 @@
 /* require the user as the parameter */
 //http://localhost:8080/sample1/webservice1.php?user=1
 ini_set('display_errors', 1);
+ini_set('xdebug.dump.POST' , '*');
 //$root= dirname(__FILE__);
 $root=dirname(__FILE__);
 require_once ($root.'/utils/config.php'); 
 require_once ($root.'/dbQuery/db_pendingTweets_functions.php');
 require_once ($root.'/utils/utilsLog.php');
 
-
+$array_id_twt=array();
+$NumTweets=null;
 $dbPending = new DB_pendingTweets_Functions();
 //isset($_GET['id_twt'])
 if(isset($_GET['id_twt']) ) {
@@ -21,18 +23,30 @@ if(isset($_GET['id_twt']) ) {
 }
 else {
 	
-	$post=json_decode($_POST,true);
-	//var_dump($post);
-	$array_id_twt = $post['array_id_twt'];
-	$NumTweets=$post['num_tweets'];
+	if (isset($_POST))
+	{
+		//Obtain the ids of the tweets as an associative array
+		
+		$fp = fopen('php://input', 'r');
+		$rawData = stream_get_contents($fp);
+		$post=json_decode($rawData,true);
+		//var_dump($post);
+		$array_id_twt = $post['array_id_twt'];
+		$NumTweets=$post['num_tweets'];
+		//var_dump($NumTweets);
+	}
 	
 }
 
 // Get tweet requested
+  //var_dump($NumTweets);
+  //var_dump($array_id_twt);
   $result=$dbPending->getArrayPendingTweet($NumTweets,$array_id_twt);
   $tweets = array();
-  $NumTweets=mysqli_num_rows($result);
-  if($NumTweets) {
+  $Arraytweets;
+  $NumRows=mysqli_num_rows($result);
+  //var_dump($NumTweets2);
+  if($NumRows) {
     while($tweets = mysqli_fetch_assoc($result)) {
       $Arraytweets[] = array('tweet_response'=>$tweets);
     }
@@ -41,10 +55,10 @@ else {
   //algorithm START
  if (!headers_sent($filename, $linenum))
  {
-  if($NumTweets) {
+  if($NumRows) {
   	header('HTTP/1.1 200 OK');
     header('Content-type: application/json');
-    echo json_encode(array('tweet'=>$Arraytweets));
+    echo json_encode($Arraytweets);
   }
   else {
     echo header("HTTP/1.1 404 Not Found");

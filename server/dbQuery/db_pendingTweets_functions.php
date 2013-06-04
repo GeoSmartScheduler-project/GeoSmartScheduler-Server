@@ -46,9 +46,9 @@ class DB_pendingTweets_Functions {
      * @return Return set of tweets from pending tweets if it succes or "false" if it fails
      */
     public function getArrayPendingTweet($NumTweets, $array_id_twt) {
-    	
+    	$list_id_twt=null;
     	for ($i=0; $i<$NumTweets; $i++){
-    			if($i) {
+    			if(!$i) {
     				$list_id_twt = $array_id_twt['id'.$i];
     			}
     			else{
@@ -57,7 +57,9 @@ class DB_pendingTweets_Functions {
     		
     	}
     	//get a set of rows from the database
-    	$result = mysqli_query($this->dblink, "SELECT * FROM `pending_tweets` WHERE `id_twt` IN ('$id_twt')")
+    	$query= "SELECT * FROM `pending_tweets` WHERE `id_twt` IN (".$list_id_twt.")";
+    	//var_dump($query);
+    	$result = mysqli_query($this->dblink, $query )
     	or die(mysqli_error($this->dblink));
     	return $result;
     }
