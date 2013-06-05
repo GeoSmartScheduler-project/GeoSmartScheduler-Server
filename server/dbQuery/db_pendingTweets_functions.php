@@ -53,12 +53,10 @@ class DB_pendingTweets_Functions {
     			}
     			else{
     				$list_id_twt = $list_id_twt.",".$array_id_twt['id'.$i];
-    			}
-    		
+    			}	
     	}
     	//get a set of rows from the database
     	$query= "SELECT * FROM `pending_tweets` WHERE `id_twt` IN (".$list_id_twt.")";
-    	//var_dump($query);
     	$result = mysqli_query($this->dblink, $query )
     	or die(mysqli_error($this->dblink));
     	return $result;
@@ -75,7 +73,6 @@ class DB_pendingTweets_Functions {
         or die(mysqli_error($this->dblink));
         return $result;
     }
-    //TODO: que reciva un array tweet *sobrecargar metodo
 
     /**
      * 

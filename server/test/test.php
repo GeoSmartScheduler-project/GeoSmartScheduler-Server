@@ -39,12 +39,12 @@ while ($tweet = $trace->fetch_assoc())
 	$gcm->send_notification($registatoin_id, $message);
 	//Log action of GCM Notification
 	//$log->user("Trace nº".$id_trace."| Notification sent to GCM Server | tweet_id = ".$tweet['id_twt'], "Alberto");
-	echo "Trace nº".$id_trace."| Notification sent to GCM Server | tweet_id = ".$tweet['id_twt'];
+	echo "Trace n�".$id_trace."| Notification sent to GCM Server | tweet_id = ".$tweet['id_twt'];
 	//store tweet in pending tweets queue
 	$dbPendingTweetsFunctions->putPendingTweet($tweet['id_twt']);
 	//Log action of put in pending list
 	//$log->user("Trace nº".$id_trace."| Tweet almacenado en pending_tweets | tweet_id = ".$tweet['id_twt'], "Alberto");
-	echo  "Trace nº".$id_trace."| Tweet almacenado en pending_tweets | tweet_id = ".$tweet['id_twt'];
+	echo  "Trace n�".$id_trace."| Tweet almacenado en pending_tweets | tweet_id = ".$tweet['id_twt'];
 	//load next sleep_time
 	$sleep_time = $tweet['time_to_next'];
 	$CurrentTwtId=$tweet['id_twt'];

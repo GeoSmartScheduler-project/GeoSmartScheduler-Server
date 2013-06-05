@@ -28,7 +28,6 @@ if ($http_status== "200")
  	
  	$ch = curl_init("http://127.0.0.1/server/request.php");
  	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
- 	//curl_setopt($ch, CURLOPT_POST, true);
  	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
  	'Content-Type: application/json',
  	'Content-Length: ' . strlen($data_string)));
