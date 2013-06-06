@@ -9,7 +9,7 @@ class DB_GCM_Functions {
     // constructor
     function __construct() {
     	$root=dirname(dirname(__FILE__));
-        include_once (__ROOT__.'/dbQuery/db_connect.php');
+        include_once ($root.'/dbQuery/db_connect.php');
         // connecting to database
         $this->db = new DB_Connect();
         $this->dblink=$this->db->connect();
