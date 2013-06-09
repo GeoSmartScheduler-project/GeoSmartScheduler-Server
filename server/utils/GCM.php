@@ -60,9 +60,9 @@ class GCM {
     }
 
  	/**
-     * Sending Push Notification
+     * Sending Push Notification without extra data
      */
-    public function send_notification($registatoin_ids) {
+    public function send_sync_notification($registatoin_ids) {
         // include config
         $root=dirname(dirname(__FILE__));
 		require_once($root.'/utils/config.php'); 

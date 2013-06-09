@@ -14,7 +14,7 @@ and open the template in the editor.
         </script>
     </head>
     <body>
-        <form name="" method="post" action="register.php">
+        <form name="" method="post" action="/server/register.php">
 			<input type="text" name="name"/>
 			<input type="text" name="email"/>
 			<input type="text" name="regId"/>
