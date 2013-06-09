@@ -65,7 +65,7 @@ class GCM {
     public function send_notification($registatoin_ids) {
         // include config
         $root=dirname(dirname(__FILE__));
-		require_once(__ROOT__.'/utils/config.php'); 
+		require_once($root.'/utils/config.php'); 
 
         // Set POST variables
         $url = 'https://android.googleapis.com/gcm/send';
