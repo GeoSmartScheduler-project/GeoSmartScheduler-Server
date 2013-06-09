@@ -9,10 +9,10 @@ require_once($root.'/utils/GCM.php');
 require_once($root.'/dbQuery/db_GCM_functions.php');
 
  //NOTE: We can add a method to get the user registration id from the db and use it instead of the constant 
-$registatoin_id = USER_REGISTRATION_ID;
+$registatoin_id = USER_REGISTRATION_ID_2;
 $gcm = new GCM();
 $log = new log();
-$tweet = array ('created_at'=>null, 'id_twt'=>null, 'text'=>null, 'size'=>null, 'time_to_next'=>null);
+$tweet;
 $id_trace = 0;
 //create object to use pendingTweets functions
 $dbPendingTweetsFunctions = new DB_pendingTweets_Functions();
@@ -21,7 +21,7 @@ $dbTracesFunctions = new DB_Traces_Functions();
 $trace = $dbTracesFunctions->getTraceOfTweets($id_trace);
 $Trace_nmbTweets = mysqli_num_rows($trace);
 //Set last tweet id "LTweetId"
-$LTweetId = $dbTracesFunctions->getLastIdTweet_TraceOfTweets($id_trace);
+//$LTweetId = $dbTracesFunctions->getLastIdTweet_TraceOfTweets($id_trace);
 $CurrentTwtId= null;
 
 //Set starting "sleep_time"
@@ -53,9 +53,9 @@ while ($tweet = $trace->fetch_assoc())
 }	
 //Release memory of the trace
 $trace->free();
-if ( $CurrentTwtId == $LTweetId )
+/*if ( $CurrentTwtId == $LTweetId )
 {
-$log->user("Trace nÂº".$id_trace."| Impossible to reach last tweet of the trace | Current_tweet_id = ".$CurrentTwtId." Last_Tweet_Id =".$LTweetId, "Alberto");
-}
+$log->user("Trace nº".$id_trace."| Impossible to reach last tweet of the trace | Current_tweet_id = ".$CurrentTwtId." Last_Tweet_Id =".$LTweetId, "Alberto");
+}*/
 
 ?>

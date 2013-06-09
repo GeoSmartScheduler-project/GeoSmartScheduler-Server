@@ -16,7 +16,7 @@ and open the template in the editor.
                 var data = $('form#'+id).serialize();
                 $('form#'+id).unbind('submit');                
                 $.ajax({
-                    url: "send_message.php",
+                    url: "/server/send_message.php",
                     type: 'GET',
                     data: data,
                     beforeSend: function() {

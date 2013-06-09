@@ -12,7 +12,7 @@ if (isset($_GET["regId"]) && isset($_GET["message"])) {
     $gcm = new GCM();
 
     $registatoin_ids = array($regId);
-    $message = array("message" => $message);
+    $message = array("message" => $message, "id"=> "22");
 
     $result = $gcm->send_notification($registatoin_ids, $message);
 

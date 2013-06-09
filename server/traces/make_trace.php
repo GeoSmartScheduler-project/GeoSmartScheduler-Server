@@ -46,7 +46,7 @@ while ($tweet = $SetOfTweets->fetch_assoc())
 		$succes=$DBtraces->putTweetinTrace($tweet_trace["trace"], $tweet_trace["id_twt"], $tweet_trace["idnxt_twt"], $tweet_trace["time_to_next"] , $tweet_trace["size"], $tweet_trace["trace"]);
 		if ($succes)
 		{
-		echo  "Trace nÂº".$tweet_trace["trace"]."| Tweet almacenado en trace | tweet_id = ".$tweet_trace["id_twt"]."| time_to_next =".$tweet_trace["time_to_next"];
+		echo  "Trace nº".$tweet_trace["trace"]."| Tweet almacenado en trace | tweet_id = ".$tweet_trace["id_twt"]."| time_to_next =".$tweet_trace["time_to_next"];
 		}
 		// keep values for next round
 		$time1 = $tweet["created_at"];

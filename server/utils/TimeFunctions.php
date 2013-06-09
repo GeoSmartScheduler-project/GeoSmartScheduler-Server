@@ -9,4 +9,11 @@ function DateInterval_to_seconds($dateInterval)
                ($dateInterval->i * 60) +
                $dateInterval->s;
       } 
+      
+      function TimeInterval_to_seconds($timeInterval)
+      {
+      	return ($dateInterval->h * 60 * 60) +
+      	($dateInterval->i * 60) +
+      	$dateInterval->s;
+      }
 ?>
