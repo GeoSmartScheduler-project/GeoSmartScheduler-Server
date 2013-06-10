@@ -9,7 +9,7 @@ require_once($root.'/utils/GCM.php');
 require_once($root.'/dbQuery/db_GCM_functions.php');
 
  //NOTE: We can add a method to get the user registration id from the db and use it instead of the constant 
-$registatoin_id = USER_REGISTRATION_ID_2;
+$reg_id = USER_REGISTRATION_ID_2;
 $gcm = new GCM();
 $log = new log();
 $tweet;
@@ -23,7 +23,7 @@ $Trace_nmbTweets = mysqli_num_rows($trace);
 //Set last tweet id "LTweetId"
 //$LTweetId = $dbTracesFunctions->getLastIdTweet_TraceOfTweets($id_trace);
 $CurrentTwtId= null;
-
+$registration_ids;
 //Set starting "sleep_time"
 $sleep_time = 0.0;
 $i=0;
@@ -35,8 +35,9 @@ while ($tweet = $trace->fetch_assoc())
 	time_sleep_until(time()+$sleep_time);
 	
 	//send tweet to gcm with the size of the tweet attached  
-	$message= array('id_twt'=>$tweet['id_twt'] ,'size'=>$tweet['size']);
-	$gcm->send_notification($registatoin_id, $message);
+	$registration_ids= array ($reg_id);
+	$message= array("message"=> $tweet['id_twt'] ,"size"=>$tweet['size']);
+	$respuesta=$gcm->send_notification($registration_ids, $message);
 	//Log action of GCM Notification
 	//$log->user("Trace nÂº".$id_trace."| Notification sent to GCM Server | tweet_id = ".$tweet['id_twt'], "Alberto");
 	echo "Trace nº".$id_trace."| Notification sent to GCM Server | tweet_id = ".$tweet['id_twt'];
@@ -50,9 +51,10 @@ while ($tweet = $trace->fetch_assoc())
 	$CurrentTwtId=$tweet['id_twt'];
 	$i++;
 	echo "Progres...".(string)(($i/$Trace_nmbTweets)*100);
+	
 }	
 //Release memory of the trace
-$trace->free();
+//$trace->free();
 /*if ( $CurrentTwtId == $LTweetId )
 {
 $log->user("Trace nº".$id_trace."| Impossible to reach last tweet of the trace | Current_tweet_id = ".$CurrentTwtId." Last_Tweet_Id =".$LTweetId, "Alberto");

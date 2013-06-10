@@ -16,16 +16,16 @@ class GCM {
     /**
      * Sending Push Notification with enclouser data
      */
-    public function send_notification($registatoin_ids, $message) {
+    public function send_notification($registation_ids, $message) {
         // include config
         $root=dirname(dirname(__FILE__));
 		require_once ($root.'/utils/config.php'); 
 
         // Set POST variables
         $url = 'https://android.googleapis.com/gcm/send';
-
+        //borrar $message= array("message"=> "puta" ,"size"=>"22");
         $fields = array(
-            'registration_ids' => $registatoin_ids,
+            'registration_ids' =>$registation_ids ,
             'data' => $message,
         );
 
@@ -45,7 +45,9 @@ class GCM {
 
         // Disabling SSL Certificate support temporarly
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-
+		//var_dump($fields);
+		$xd=json_encode($fields);
+		//var_dump($xd);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
 
         // Execute post
