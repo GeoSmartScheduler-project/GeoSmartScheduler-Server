@@ -9,9 +9,12 @@ require_once($root.'/utils/GCM.php');
 require_once($root.'/dbQuery/db_GCM_functions.php');
 
  //NOTE: We can add a method to get the user registration id from the db and use it instead of the constant 
-$reg_id = USER_REGISTRATION_ID_2;
+
 $gcm = new GCM();
 $log = new log();
+$dbGCM = new DB_GCM_Functions();
+$result = $dbGCM->getLastUserInfo();
+$reg_id= mysqli_fetch_assoc($result);
 $tweet;
 $id_trace = 0;
 //create object to use pendingTweets functions
@@ -35,7 +38,7 @@ while ($tweet = $trace->fetch_assoc())
 	time_sleep_until(time()+$sleep_time);
 	
 	//send tweet to gcm with the size of the tweet attached  
-	$registration_ids= array ($reg_id);
+	$registration_ids= array ($reg_id["gcm_regid"]);
 	$message= array("message"=> $tweet['id_twt'] ,"size"=>$tweet['size']);
 	$respuesta=$gcm->send_notification($registration_ids, $message);
 	//Log action of GCM Notification

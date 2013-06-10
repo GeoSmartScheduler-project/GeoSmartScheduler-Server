@@ -74,6 +74,15 @@ class DB_GCM_Functions {
             return false;
         }
     }
+    
+    
+    /**
+     * Get user by email
+     */
+    public function getLastUserInfo() {
+    	$result = mysqli_query($this->dblink, "SELECT `gcm_regid` FROM `gcm_users` WHERE `created_at` = (SELECT max(`created_at`) FROM `gcm_users`)");
+    	return $result;
+    }
 
 }
 
