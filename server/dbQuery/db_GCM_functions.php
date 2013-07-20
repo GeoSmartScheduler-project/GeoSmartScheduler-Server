@@ -44,6 +44,16 @@ class DB_GCM_Functions {
     }
 
     /**
+     * Update user register in the DB
+     */
+    //TODO: try new db function
+    public function updateUserGCMid ($old_gcm_regid, $new_gcm_regid){
+    	
+    	$result = mysqli_query($this->dblink, "UDATE gcm_users SET gcm_regid='$new_gcm_regid' WHERE gcm_regid= '$old_gcm_regid'");
+    	
+    }
+    
+    /**
      * Get user by email 
      */
     public function getUserByEmail($email) {
@@ -77,7 +87,7 @@ class DB_GCM_Functions {
     
     
     /**
-     * Get user by email
+     * Get last user added in the database
      */
     public function getLastUserInfo() {
     	$result = mysqli_query($this->dblink, "SELECT `gcm_regid` FROM `gcm_users` WHERE `created_at` = (SELECT max(`created_at`) FROM `gcm_users`)");

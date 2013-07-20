@@ -40,15 +40,23 @@ while ($tweet = $trace->fetch_assoc())
 	//send tweet to gcm with the size of the tweet attached  
 	$registration_ids= array ($reg_id["gcm_regid"]);
 	$message= array("message"=> $tweet['id_twt'] ,"size"=>$tweet['size']);
-	$respuesta=$gcm->send_notification($registration_ids, $message);
+	$success=$gcm->send_notification($registration_ids, $message);
 	//Log action of GCM Notification
 	//$log->user("Trace nÂº".$id_trace."| Notification sent to GCM Server | tweet_id = ".$tweet['id_twt'], "Alberto");
-	echo "Trace nº".$id_trace."| Notification sent to GCM Server | tweet_id = ".$tweet['id_twt'];
-	//store tweet in pending tweets queue
-	$dbPendingTweetsFunctions->putPendingTweet($tweet['id_twt']);
-	//Log action of put in pending list
-	//$log->user("Trace nÂº".$id_trace."| Tweet almacenado en pending_tweets | tweet_id = ".$tweet['id_twt'], "Alberto");
-	echo  "Trace nº".$id_trace."| Tweet almacenado en pending_tweets | tweet_id = ".$tweet['id_twt'];
+	//If the response is true, the notification was successfully delivered and we can store it in the pending queue
+	//Otherwise we stop the test
+	if ($success){
+		echo "Trace nº".$id_trace."| Notification sent to GCM Server | tweet_id = ".$tweet['id_twt'];
+		//store tweet in pending tweets queue
+		$dbPendingTweetsFunctions->putPendingTweet($tweet['id_twt']);
+		//Log action of put in pending list
+		//$log->user("Trace nÂº".$id_trace."| Tweet almacenado en pending_tweets | tweet_id = ".$tweet['id_twt'], "Alberto");
+		echo  "Trace nº".$id_trace."| Tweet almacenado en pending_tweets | tweet_id = ".$tweet['id_twt'];
+	
+	}
+	else{
+		break;
+	}
 	//load next sleep_time
 	$sleep_time = $tweet['time_to_next'];
 	$CurrentTwtId=$tweet['id_twt'];

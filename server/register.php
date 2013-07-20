@@ -22,14 +22,14 @@ if (isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["regId"])) {
     $gcm = new GCM();
 
     $res = $db->storeUser($name, $email, $gcm_regid);
+    //TODO: eliminar el envio del primer mensaje de you have sucessfully singned in y enviarlo en el cuerpo de la respuesta post
 if ($res)
 	{
-    	$registatoin_ids = array($gcm_regid);
-    	$message = array("message" => "You have successfully signed in");
+    	//$registatoin_ids = array($gcm_regid);
+    	//$message = array("message" => "You have successfully signed in");
+    	//$result = $gcm->send_notification($registatoin_ids, $message);
+		echo header("HTTP/1.0 200 OK");
 
-    	$result = $gcm->send_notification($registatoin_ids, $message);
-
-    	echo $result;
 	}
 	else {
 		echo header("HTTP/1.1 404 Not Found");
