@@ -1,5 +1,4 @@
 <?php  
-ini_set('display_errors', 1);
 $root=dirname(__FILE__);
 require_once ($root.'/utils/config.php'); 
 require_once ($root.'/dbQuery/db_pendingTweets_functions.php');
@@ -12,7 +11,8 @@ $dbPending = new DB_pendingTweets_Functions();
 if(isset($_GET['id_twt']) ) {
  
   $array_id_twt = $_GET['id_twt']; 
-  $NumTweets=0;
+  $NumTweets=1;
+  error_log("GET de request.php");
 
 }
 else {
@@ -25,6 +25,7 @@ else {
 		$post=json_decode($rawData,true);
 		$array_id_twt = $post['array_id_twt'];
 		$NumTweets=$post['num_tweets'];
+		error_log("valores recividos en el POST de request.php|number_tweets".var_export($NumTweets,true));
 	}
 	
 }

@@ -26,7 +26,7 @@ class GCM {
         $url = 'https://android.googleapis.com/gcm/send';
       	
         $fields = array(
-            'registration_ids' =>$registation_ids ,
+            'registration_ids' =>$registation_ids,
             'data' => $message,
         );
 
@@ -60,16 +60,16 @@ class GCM {
 		else {
 			//Control the response looking for failures or canonicals id to handle the errors
 			$gcmResponse = json_decode($result,true);
-			if ($gcmResponse["failure"]!="0" || $gcmResponse["canonical_id"]!="0"){
+			if ($gcmResponse["failure"]!="0" || $gcmResponse["canonical_ids"]!="0"){
 				$gcmResults=$gcmResponse["results"];
 				for ($i=0; $i<count($gcmResults); $i++){
 					
 					$arrayAux=$gcmResults[$i];
 					if ($arrayAux["error"]!=null){
-						error_log("Error during a gcm notification|reg_id:"+$registation_ids[$i]+"|error:"+$arrayAux["error"]);
+						error_log("Error during a gcm notification|reg_id:".$registation_ids[$i]."|error:".$arrayAux["error"]);
 						$success = false;
 					}
-					if($arrayAux["message_id"]!=null){
+					if($arrayAux["message_id"]!=null && $arrayAux["registration_id"]!=null){
 						$new_gcm_regid = $arrayAux["registration_id"];
 						$db1= new DB_GCM_Functions();
 						$db1->updateUserGCMid($registation_ids[$i], $new_gcm_regid);
