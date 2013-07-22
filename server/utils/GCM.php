@@ -20,10 +20,11 @@ class GCM {
         // include config
         $root=dirname(dirname(__FILE__));
 		require_once ($root.'/utils/config.php'); 
+		require_once ($root.'/dbQuery/db_GCM_functions.php');
 
         // Set POST variables
         $url = 'https://android.googleapis.com/gcm/send';
-        //borrar $message= array("message"=> "puta" ,"size"=>"22");
+      	
         $fields = array(
             'registration_ids' =>$registation_ids ,
             'data' => $message,
@@ -51,26 +52,34 @@ class GCM {
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
 
         // Execute post
-        //TODO: ADD control of error codes from gcm to avoid problems in the future
         $result = curl_exec($ch);
         $success = null;
         if ($result == false) {
             die('Curl failed: ' . curl_error($ch));
         }
 		else {
-			$arrayResult = json_decode($result,true);
-			if ($arrayResult["failure"]!="0"){
-				$i=$arrayResult["results"];
-				if ($i["error"]!=null){
-					error_log($i["error"]);
+			//Control the response looking for failures or canonicals id to handle the errors
+			$gcmResponse = json_decode($result,true);
+			if ($gcmResponse["failure"]!="0" || $gcmResponse["canonical_id"]!="0"){
+				$gcmResults=$gcmResponse["results"];
+				for ($i=0; $i<count($gcmResults); $i++){
+					
+					$arrayAux=$gcmResults[$i];
+					if ($arrayAux["error"]!=null){
+						error_log("Error during a gcm notification|reg_id:"+$registation_ids[$i]+"|error:"+$arrayAux["error"]);
+						$success = false;
+					}
+					if($arrayAux["message_id"]!=null){
+						$new_gcm_regid = $arrayAux["registration_id"];
+						$db1= new DB_GCM_Functions();
+						$db1->updateUserGCMid($registation_ids[$i], $new_gcm_regid);
+						$success = true;
+					}
 				}
-				if($i["message_id"]!=null){
-					$new_gcm_regid = $i["registration_id"];
-					$db1= new DB_GCM_Functions();
-					$db1->updateUserGCMid($registation_ids, $new_gcm_regid);
-				}
-				$success = false;
+				
+				
 			}
+				
 			else{
 				$success = true;
 			}

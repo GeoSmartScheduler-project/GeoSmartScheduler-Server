@@ -49,8 +49,10 @@ class DB_GCM_Functions {
     //TODO: try new db function
     public function updateUserGCMid ($old_gcm_regid, $new_gcm_regid){
     	
-    	$result = mysqli_query($this->dblink, "UDATE gcm_users SET gcm_regid='$new_gcm_regid' WHERE gcm_regid= '$old_gcm_regid'");
-    	
+    	$result = mysqli_query($this->dblink, "UPDATE `gcm_users` SET `gcm_regid`='$new_gcm_regid' WHERE `gcm_regid`= '$old_gcm_regid'");
+    	if(!$result){
+    		error_log(mysqli_error($this->dblink)+"|old_reg_id:"+$old_gcm_regid+"|new_reg_id:"+$new_gcm_regid);
+    	}
     }
     
     /**
