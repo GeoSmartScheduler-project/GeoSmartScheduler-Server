@@ -33,7 +33,7 @@ class DB_pendingTweets_Functions {
      */
     public function getPendingTweet($id_twt) {
     	//get a set of rows from the database
-        $result = mysqli_query($this->dblink, "SELECT * FROM `pending_tweets` WHERE `id_twt` ='$id_twt'")
+        $result = mysqli_query($this->dblink, "SELECT * FROM `pending_tweets` WHERE `id_twt` =".$id_twt)
         or die(mysqli_error($this->dblink));
         return $result;
     }
@@ -69,7 +69,7 @@ class DB_pendingTweets_Functions {
      */
 	public function deletePendingTweet($id_twt) {
     	//get a set of rows from the database
-        $result = mysqli_query($this->dblink, "DELETE FROM `pending_tweets` WHERE `id_twt`= '$id_twt'")
+        $result = mysqli_query($this->dblink, "DELETE FROM `pending_tweets` WHERE `id_twt`= ".$id_twt)
         or die(mysqli_error($this->dblink));
         return $result;
     }

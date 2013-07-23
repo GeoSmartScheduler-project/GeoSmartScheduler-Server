@@ -1,6 +1,6 @@
 <?php
 ini_set('display_errors', 1);
-set_time_limit(120);
+set_time_limit(0);
 $root=dirname(dirname(__FILE__));
 require_once($root.'/utils/config.php'); 
 require_once($root.'/dbQuery/db_traces_functions.php');

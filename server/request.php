@@ -19,13 +19,14 @@ else {
 	
 	if (isset($_POST))
 	{
+		//error_log(var_dump($_POST,true));
 		//Obtain the ids of the tweets as an associative array		
 		$fp = fopen('php://input', 'r');
 		$rawData = stream_get_contents($fp);
 		$post=json_decode($rawData,true);
 		$array_id_twt = $post['array_id_twt'];
 		$NumTweets=$post['num_tweets'];
-		error_log("valores recividos en el POST de request.php|number_tweets".var_export($NumTweets,true));
+		error_log("valores recividos en el POST de request.php|number_tweets:".var_export($NumTweets,true));
 	}
 	
 }
