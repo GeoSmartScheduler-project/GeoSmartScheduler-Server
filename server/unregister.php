@@ -1,3 +1,3 @@
 <?php
-//TODO: implementar scrikpt para eliminar registro de una app
+//TODO: implement script to remove registered app
 ?>

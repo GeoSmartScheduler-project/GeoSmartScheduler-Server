@@ -46,7 +46,7 @@ class DB_GCM_Functions {
     /**
      * Update user register in the DB
      */
-    //TODO: try new db function
+
     public function updateUserGCMid ($old_gcm_regid, $new_gcm_regid){
     	
     	$result = mysqli_query($this->dblink, "UPDATE `gcm_users` SET `gcm_regid`='$new_gcm_regid' WHERE `gcm_regid`= '$old_gcm_regid'");

@@ -8,7 +8,6 @@ $json = array();
  * Store reg id in users table
  */
 
-//TODO: devolver un error si no se ha podido registrar el usuario en el servidor para abortar en la app continue
 if (isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["regId"])) {
     $name = $_POST["name"];
     $email = $_POST["email"];
@@ -22,20 +21,16 @@ if (isset($_POST["name"]) && isset($_POST["email"]) && isset($_POST["regId"])) {
     $gcm = new GCM();
 
     $res = $db->storeUser($name, $email, $gcm_regid);
-    //TODO: eliminar el envio del primer mensaje de you have sucessfully singned in y enviarlo en el cuerpo de la respuesta post
-if ($res)
+    if ($res)
 	{
-    	//$registatoin_ids = array($gcm_regid);
-    	//$message = array("message" => "You have successfully signed in");
-    	//$result = $gcm->send_notification($registatoin_ids, $message);
 		echo header("HTTP/1.0 200 OK");
-
 	}
 	else {
 		echo header("HTTP/1.1 404 Not Found");
 	}
 
-} else {
-    // user details missing
+} else { 
+    // No user data 
+    echo header("HTTP/1.1 404 Not Found");
 }
 ?>
