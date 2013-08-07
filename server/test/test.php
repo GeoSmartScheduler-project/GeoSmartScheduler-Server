@@ -26,9 +26,6 @@ $dbTracesFunctions = new DB_Traces_Functions();
 $trace = $dbTracesFunctions->getTraceOfTweets($id_trace);
 $Trace_nmbTweets = mysqli_num_rows($trace);
 
-//Set last tweet id "LTweetId"
-//$LTweetId = $dbTracesFunctions->getLastIdTweet_TraceOfTweets($id_trace);
-
 //initialating  "sleep_time" and variables
 $sleep_time = 0.0;
 $i=0;

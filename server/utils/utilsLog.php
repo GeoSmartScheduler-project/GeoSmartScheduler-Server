@@ -40,6 +40,12 @@ Class log {
     error_log($log, 3, self::GENERAL_ERROR_DIR);
     }
 
+public function general($file,$msg)
+    {
+    $date = date('d.m.Y h:i:s');
+    $log = $date."|".time()."|".$msg."\n";
+    error_log($log, 3, $file);
+    }
 }
 
 ?>

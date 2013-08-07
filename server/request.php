@@ -19,7 +19,6 @@ else {
 	
 	if (isset($_POST))
 	{
-		//error_log(var_dump($_POST,true));
 		//Obtain the ids of the tweets as an associative array		
 		$fp = fopen('php://input', 'r');
 		$rawData = stream_get_contents($fp);
