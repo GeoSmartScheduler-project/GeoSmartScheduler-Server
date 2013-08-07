@@ -55,7 +55,7 @@ while ($tweet = $trace->fetch_assoc())
 	}
 	else{
 		//Imposible to start test
-		error_log("Unable to finish the trace number: "+$id_trace);
+		error_log("Unable to finish the trace number: ".$id_trace);
 		echo header("HTTP/1.1 404 Not Found");
 		exit(-1);
 	}

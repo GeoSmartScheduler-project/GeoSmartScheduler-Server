@@ -18,8 +18,8 @@
 
 Class log {
   //path of the log
-  const USER_ERROR_DIR = '/home/alberto/LogsPersonal/testTrace.log';
-  const GENERAL_ERROR_DIR = '/home/alberto/LogsPersonal/General_errors.log';
+  const USER_ERROR_DIR = '/Logs/ServerLog/testTrace.log';
+  const GENERAL_ERROR_DIR = '/Logs/ServerLog/BWServer.log';
 
  /*
   * User Errors
@@ -27,7 +27,7 @@ Class log {
     public function user($msg,$username)
     {
     $date = date('d.m.Y h:i:s');
-    $log ="Date: ".$date." | User: ".$username." | ". $msg."\n";
+    $log =$date."|".time()."|". $msg."\n";
     error_log($log, 3, self::USER_ERROR_DIR);
     }
  /*
@@ -36,7 +36,7 @@ Class log {
     public function general($msg)
     {
     $date = date('d.m.Y h:i:s');
-    $log = "Date:  ".$date." | ".$msg."\n";
+    $log = $date."|".time()."|".$msg."\n";
     error_log($log, 3, self::GENERAL_ERROR_DIR);
     }
 
