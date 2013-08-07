@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 set_time_limit(0);
 $root=dirname(dirname(__FILE__));
 require_once($root.'/utils/utilsLog.php');
-require_once($root.'/test/bandwidth.php');
+//require_once($root.'/test/bandwidth.php');
 $Num_Test=1;
 $trace=0;
 $log=new log();

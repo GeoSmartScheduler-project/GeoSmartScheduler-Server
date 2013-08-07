@@ -22,10 +22,10 @@ foreach ( $ArrayBW as $bw){
 		exec("sudo ipfw pipe 1 config bw ".$bw."Kbit/s");
 		sleep(1);
 		//log bw to user log
-		$log->general($logFile,$Num_Test."|".$bw);
+		$log->generalToFile($logFile,$Num_Test."|".$bw);
 	}
 	exec("sudo ipfw pipe 1 config bw 1bit/s");
-	$log->general($logFile,$Num_Test."|FIN");
+	$log->generalToFile($logFile,$Num_Test."|FIN");
 }
 else{
 error_log("Unable to execute bandwidth.php missed argument to execute");
