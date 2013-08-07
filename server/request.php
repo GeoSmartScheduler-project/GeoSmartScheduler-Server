@@ -48,6 +48,9 @@ else {
   	header('HTTP/1.1 200 OK');
     header('Content-type: application/json');
     echo json_encode($Arraytweets);
+    //echo '<img src="http://myimglink.com/img.png" border=0>';
+                                                                                                               
+
   }
   else {
     echo header("HTTP/1.1 404 Not Found");
