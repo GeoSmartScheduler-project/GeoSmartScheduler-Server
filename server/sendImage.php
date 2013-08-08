@@ -1,14 +1,19 @@
 <?php
 // open the file in a binary mode
-$name = './img/ok.png';
+$filename = dirname(__FILE__).'/assets/image.jpeg';
 $fp = fopen($name, 'rb');
-
-// send the right headers
-header('HTTP/1.1 200 OK');
-header("Content-Type: image/png");
-header("Content-Length: " . filesize($name));
-// dump the picture and stop the script
-fpassthru($fp);
+if (file_exists($filename)) {
+	// send the right headers
+	header('HTTP/1.1 200 OK');
+	header("Content-Type: image/jpeg");
+	header("Content-Length: " . filesize($filename));
+	header('Content-Disposition: attachment'); 
+	header('filename=image.jpeg');
+	// dump the picture and stop the script
+	ob_clean();
+	flush();
+	fpassthru($fp);
+}
 exit;
 
 
