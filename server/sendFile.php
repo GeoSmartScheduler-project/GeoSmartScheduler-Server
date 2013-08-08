@@ -12,7 +12,7 @@ if (file_exists($file)) {
     header('Content-Length: ' . filesize($file));
     ob_clean();
     flush();
-    readfile($fichero);
+    readfile($file);
 }
     exit;
     

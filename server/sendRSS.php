@@ -4,7 +4,7 @@
 	header('HTTP/1.1 200 OK');
     header('Content-type: application/rss+xml');
     header('Content-Length: ' .filesize($filename));
-    header('filename=rss.xml');
+    header('Content-Disposition: attachment; filename='.basename($filename));
     ob_clean();
     flush();
 	readfile($filename);
