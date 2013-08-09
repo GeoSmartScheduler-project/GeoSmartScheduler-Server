@@ -53,6 +53,23 @@ class DB_Traces_Functions {
         or die(mysqli_error($this->dblink));
         return $result;
     }
+    /*
+     * SELECT * FROM `twitter_trace1` WHERE `created_at`>=DATE_SUB('2013-08-09 00:41:06', INTERVAL 20 MINUTE) AND `created_at`<='2013-08-09 00:41:06' ORDER BY `created_at` ASC
+     */
+    
+public function getTraceOfTweets_byinterval($datein,$interval) {
+    	//get a set of rows from the database
+        $result = mysqli_query($this->dblink, "SELECT * FROM `twitter_trace1` WHERE `created_at`>DATE_SUB('".$datein."', INTERVAL ".$interval." MINUTE)  AND `created_at`<='".$datein."' ORDER BY `created_at` ASC")
+        or die(mysqli_error($this->dblink));
+        return $result;
+    }
+    
+public function deleteRowTraceOfTweets($idtwt) {
+    	//get a set of rows from the database
+        $result = mysqli_query($this->dblink, "DELETE FROM `twitter_trace1` WHERE `id_twt`=".$idtwt)
+        or die(mysqli_error($this->dblink));
+        return $result;
+    }
     
 /**
      * Put tweet into a trace
@@ -65,10 +82,23 @@ class DB_Traces_Functions {
      */
     public function putTweetinTrace($num, $idtwt, $idnxt_twt, $period, $size) {
     	//get a set of rows from the database
-        $result = mysqli_query($this->dblink, "INSERT INTO `trace$num` (`id_twt`,`idnxt_twt` ,`time_to_next`, `size`,`id_trace`) VALUES ('$idtwt',' $idnxt_twt',' $period','$size','$num');")
+        $result = mysqli_query($this->dblink, "INSERT INTO `notifications_trace".$num."` (`id_twt`,`idnxt_twt` ,`time_to_next`, `size`,`id_trace`) VALUES ('$idtwt',' $idnxt_twt',' $period','$size','$num');")
         or die(mysqli_error($this->dblink));
         return $result;
     }
     
-    
+public function create_table_trace($trace) {
+    	//create table for trace
+        $result = mysqli_query($this->dblink, "CREATE TABLE IF NOT EXISTS `notifications_trace".$trace."` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_twt` bigint(20) NOT NULL,
+  `idnxt_twt` bigint(20) NOT NULL,
+  `id_trace` int(11) NOT NULL,
+  `size` int(11) NOT NULL,
+  `time_to_next` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;")
+        or die(mysqli_error($this->dblink));
+        return $result;
+    } 
 }

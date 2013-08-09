@@ -14,11 +14,38 @@ $size1=null;
 $period=0;
 $num_rows=null;
 $tweet_trace = array ('id_twt'=>null, 'idnxt_twt'=>null, 'trace'=>0, 'size'=>null, 'time_to_next'=>null);
-//$tweet = array ('created_at'=>null, 'id_twt'=>null, 'text'=>null, 'size'=>null, 'time_to_next'=>null);
 $DBtraces = new DB_Traces_Functions();
-$datein = "2013-04-25 23:59:59";
-$SetOfTweets =$DBtraces->getTraceOfTweets_byDate($datein);
+$datein = "2013-08-09 00:30:56";
+$trace=0;
 
+while ($trace<30){
+
+//load samples to create the notifications trace from tweet feed
+$SetOfTweets =$DBtraces->getTraceOfTweets_byinterval($datein,"9");
+//If there are no more than 10 notifications discard that trace 
+$NumRows=mysqli_num_rows($SetOfTweets);
+if ($NumRows<10){
+	if($NumRows==0){
+		$date=date_sub(new DateTime($datein), new DateInterval('PT9M'));
+		$datein= $date->format('Y-m-d H:i:s');
+	}
+	else{
+	if ($NumRows==1){
+		$tweet = $SetOfTweets->fetch_assoc();
+		$datein=$tweet["created_at"];
+		$idtwt = $tweet["id_twt"];
+		$DBtraces->deleteRowTraceOfTweets($idtwt);
+	}
+	else{
+			$tweet = $SetOfTweets->fetch_assoc();
+			$datein=$tweet["created_at"];
+			$idtwt = $tweet["id_twt"];				
+	}
+	}
+}
+else{
+	//Generate table to store notifications trace	
+$DBtraces->create_table_trace($trace);
 while ($tweet = $SetOfTweets->fetch_assoc())
 {
 	
@@ -28,6 +55,7 @@ while ($tweet = $SetOfTweets->fetch_assoc())
 		$time1 = $tweet["created_at"];
 		$idtwt = $tweet["id_twt"];
 		$size1 = $tweet["size"];
+		$datein=$time1;
 	}
 	else
 	{
@@ -43,10 +71,11 @@ while ($tweet = $SetOfTweets->fetch_assoc())
 		$tweet_trace["size"]= $size1;
 		$tweet_trace["time_to_next"]= $period;
 		//Store tweet in the trace	
-		$succes=$DBtraces->putTweetinTrace($tweet_trace["trace"], $tweet_trace["id_twt"], $tweet_trace["idnxt_twt"], $tweet_trace["time_to_next"] , $tweet_trace["size"], $tweet_trace["trace"]);
+		$succes=$DBtraces->putTweetinTrace($trace, $tweet_trace["id_twt"], $tweet_trace["idnxt_twt"], $tweet_trace["time_to_next"] , $tweet_trace["size"], $tweet_trace["trace"]);
 		if ($succes)
 		{
-		echo  "Trace n�".$tweet_trace["trace"]."| Tweet almacenado en trace | tweet_id = ".$tweet_trace["id_twt"]."| time_to_next =".$tweet_trace["time_to_next"];
+		echo  "Trace n�".$trace."| Tweet almacenado en trace | tweet_id = ".$tweet_trace["id_twt"]."| time_to_next =".$tweet_trace["time_to_next"]."\n";
+		
 		}
 		// keep values for next round
 		$time1 = $tweet["created_at"];
@@ -55,8 +84,11 @@ while ($tweet = $SetOfTweets->fetch_assoc())
 	}
 	
 }
+$trace++;
+}
 //Release memory of the set of tweets 
 $SetOfTweets->free();
 
+}
 ?>
 
