@@ -27,13 +27,14 @@ $json_response = array();
 $url = 'https://api.twitter.com/1.1/search/tweets.json';
 $requestMethod = 'GET';
 $dbTwitterFunctions = new DB_Twitter_Functions();
+$dbTwitterFunctions->createTable();
 /*
  * Collect tweets from the Twitter API
  */
 for ($i=0; $i<5; $i++)
 {
 /* Set the options of the request to the API*/
-$getfield = '?q=Gibraltar&count=100';
+$getfield = '?q=%22La%20CEOE%22&count=100';
 /* 
  * Add the option max_id to the request to retrieve tweets from the last tweet stored before
  */
@@ -70,6 +71,7 @@ try {
 $array_tweets = json_decode($json_response, true);
 if (!empty($array_tweets["statuses"]))
 {
+	
 	
 foreach ($array_tweets["statuses"] as $tweet)
 {

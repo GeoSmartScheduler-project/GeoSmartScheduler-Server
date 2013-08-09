@@ -49,7 +49,7 @@ class DB_Traces_Functions {
      */
     public function getTraceOfTweets_byDate($datein) {
     	//get a set of rows from the database
-        $result = mysqli_query($this->dblink, "SELECT * FROM `twitter_trace` WHERE `created_at`<= '$datein'  AND DAY(`created_at`) >  (DAY('$datein')-1) ORDER BY `created_at` ASC")
+        $result = mysqli_query($this->dblink, "SELECT * FROM `".TWITTER_TRACE."` WHERE `created_at`<= '$datein'  AND DAY(`created_at`) >  (DAY('$datein')-1) ORDER BY `created_at` ASC")
         or die(mysqli_error($this->dblink));
         return $result;
     }
@@ -59,14 +59,14 @@ class DB_Traces_Functions {
     
 public function getTraceOfTweets_byinterval($datein,$interval) {
     	//get a set of rows from the database
-        $result = mysqli_query($this->dblink, "SELECT * FROM `twitter_trace1` WHERE `created_at`>DATE_SUB('".$datein."', INTERVAL ".$interval." MINUTE)  AND `created_at`<='".$datein."' ORDER BY `created_at` ASC")
+        $result = mysqli_query($this->dblink, "SELECT * FROM `".TWITTER_TRACE."` WHERE `created_at`>DATE_SUB('".$datein."', INTERVAL ".$interval." MINUTE)  AND `created_at`<='".$datein."' ORDER BY `created_at` ASC")
         or die(mysqli_error($this->dblink));
         return $result;
     }
     
 public function deleteRowTraceOfTweets($idtwt) {
     	//get a set of rows from the database
-        $result = mysqli_query($this->dblink, "DELETE FROM `twitter_trace1` WHERE `id_twt`=".$idtwt)
+        $result = mysqli_query($this->dblink, "DELETE FROM `".TWITTER_TRACE."` WHERE `id_twt`=".$idtwt)
         or die(mysqli_error($this->dblink));
         return $result;
     }
@@ -76,7 +76,7 @@ public function deleteRowTraceOfTweets($idtwt) {
     
 public function getStartTime() {
     	//get a set of rows from the database
-        $result = mysqli_query($this->dblink, "SELECT max(`created_at`) FROM `twitter_trace1`")
+        $result = mysqli_query($this->dblink, "SELECT max(`created_at`) FROM `".TWITTER_TRACE."`")
         or die(mysqli_error($this->dblink));
         return $result;
     }
@@ -87,7 +87,7 @@ public function getStartTime() {
     
     public function getEndTime() {
     	//get a set of rows from the database
-        $result = mysqli_query($this->dblink, "SELECT min(`created_at`) FROM `twitter_trace1`")
+        $result = mysqli_query($this->dblink, "SELECT min(`created_at`) FROM `".TWITTER_TRACE."`")
         or die(mysqli_error($this->dblink));
         return $result;
     }

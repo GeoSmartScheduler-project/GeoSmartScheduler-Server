@@ -10,7 +10,7 @@ define("DB_DATABASE", "gss");
 /*
  * Table names
  */
-define("TWITTER_TRACE", "twitter_trace1");
+define("TWITTER_TRACE", "twitter_trace5");
 /*
  * Google API Key
  */
@@ -27,7 +27,7 @@ define("CONSUMER_SECRET", "FpTmr6ttjvPH0JbBAMI929bJYSDaCCI6APEMMgCc"); // Place 
  * Twitter API request options
  */
 define("COUNT_TWEETS", "200"); // Place your count parameter
-define("MAX_ID", "0"); // Place your max_id parameter
+define("MAX_ID", "365631846790340608"); // Place your max_id parameter
 define("SINCE_ID", "0"); // Place your since_id parameter
 
 /*

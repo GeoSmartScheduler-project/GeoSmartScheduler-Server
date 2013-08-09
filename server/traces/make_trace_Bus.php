@@ -23,15 +23,15 @@ $datein= $row[0];
 $result=$DBtraces->getEndTime();
 $row = $result->fetch_array();
 $enddate=$row[0];
-$trace=5;
+$trace=30;
 
-while ($trace<30){
+while ($trace<31){
 
 //load samples to create the notifications trace from tweet feed
 $SetOfTweets =$DBtraces->getTraceOfTweets_byinterval($datein,"9");
 //If there are no more than 10 notifications discard that trace 
 $NumRows=mysqli_num_rows($SetOfTweets);
-if ($NumRows<10){
+if ($NumRows<10&&$NumRows>90){
 	if($NumRows==0){
 		$date=date_sub(new DateTime($datein), new DateInterval('PT9M'));
 		$datein= $date->format('Y-m-d H:i:s');
