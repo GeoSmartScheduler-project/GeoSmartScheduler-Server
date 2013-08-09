@@ -70,6 +70,28 @@ public function deleteRowTraceOfTweets($idtwt) {
         or die(mysqli_error($this->dblink));
         return $result;
     }
+   /*
+    * SELECT max(`created_at`) FROM `twitter_trace1` 
+    */
+    
+public function getStartTime() {
+    	//get a set of rows from the database
+        $result = mysqli_query($this->dblink, "SELECT max(`created_at`) FROM `twitter_trace1`")
+        or die(mysqli_error($this->dblink));
+        return $result;
+    }
+    
+    /*
+     * 
+     */
+    
+    public function getEndTime() {
+    	//get a set of rows from the database
+        $result = mysqli_query($this->dblink, "SELECT min(`created_at`) FROM `twitter_trace1`")
+        or die(mysqli_error($this->dblink));
+        return $result;
+    }
+    
     
 /**
      * Put tweet into a trace

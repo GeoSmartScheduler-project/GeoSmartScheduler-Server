@@ -68,10 +68,10 @@ try {
  * If the response is empty then the script is stoped
  */
 $array_tweets = json_decode($json_response, true);
-if (!empty($array_tweets))
+if (!empty($array_tweets["statuses"]))
 {
 	
-foreach ($array_tweets as $tweet)
+foreach ($array_tweets["statuses"] as $tweet)
 {
 	$dbtweet["created_at"]= date("Y-m-d H:i:s",strtotime($tweet["created_at"]));
 	$dbtweet["id"]= (int) $tweet["id"];

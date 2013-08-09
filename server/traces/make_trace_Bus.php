@@ -1,5 +1,6 @@
 <?php
 ini_set('display_errors', 1);
+set_time_limit(0);
 $root=dirname(dirname(__FILE__));
 require_once($root.'/utils/config.php'); 
 require_once($root.'/utils/TimeFunctions.php');
@@ -15,8 +16,14 @@ $period=0;
 $num_rows=null;
 $tweet_trace = array ('id_twt'=>null, 'idnxt_twt'=>null, 'trace'=>0, 'size'=>null, 'time_to_next'=>null);
 $DBtraces = new DB_Traces_Functions();
-$datein = "2013-08-09 00:30:56";
-$trace=0;
+
+$result=$DBtraces->getStartTime();
+$row = $result->fetch_array();
+$datein= $row[0];
+$result=$DBtraces->getEndTime();
+$row = $result->fetch_array();
+$enddate=$row[0];
+$trace=5;
 
 while ($trace<30){
 
@@ -55,7 +62,7 @@ while ($tweet = $SetOfTweets->fetch_assoc())
 		$time1 = $tweet["created_at"];
 		$idtwt = $tweet["id_twt"];
 		$size1 = $tweet["size"];
-		$datein=$time1;
+		
 	}
 	else
 	{
@@ -74,7 +81,7 @@ while ($tweet = $SetOfTweets->fetch_assoc())
 		$succes=$DBtraces->putTweetinTrace($trace, $tweet_trace["id_twt"], $tweet_trace["idnxt_twt"], $tweet_trace["time_to_next"] , $tweet_trace["size"], $tweet_trace["trace"]);
 		if ($succes)
 		{
-		echo  "Trace n�".$trace."| Tweet almacenado en trace | tweet_id = ".$tweet_trace["id_twt"]."| time_to_next =".$tweet_trace["time_to_next"]."\n";
+		//echo  "Trace n�".$trace."| Tweet almacenado en trace | tweet_id = ".$tweet_trace["id_twt"]."| time_to_next =".$tweet_trace["time_to_next"]."\n";
 		
 		}
 		// keep values for next round
@@ -84,6 +91,10 @@ while ($tweet = $SetOfTweets->fetch_assoc())
 	}
 	
 }
+$date=date_sub(new DateTime($datein), new DateInterval('PT9M'));
+$datein= $date->format('Y-m-d H:i:s');
+if ($enddate>$datein){
+exit;}
 $trace++;
 }
 //Release memory of the set of tweets 
