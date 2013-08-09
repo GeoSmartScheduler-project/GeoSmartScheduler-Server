@@ -25,7 +25,7 @@ class DB_Traces_Functions {
      */
     public function getTraceOfTweets($id_trace) {
     	//get a set of rows from the database
-        $result = mysqli_query($this->dblink, "SELECT * FROM `trace".$id_trace."`")
+        $result = mysqli_query($this->dblink, "SELECT * FROM `notifications_trace".$id_trace."`")
         or die(mysqli_error($this->dblink));
         return $result;
     }
@@ -36,7 +36,7 @@ class DB_Traces_Functions {
      */
     public function getLastIdTweet_TraceOfTweets($id_trace) {
     	//get a set of rows from the database
-        $result = mysqli_query($this->dblink, "SELECT MAX(`created_at`),`id_twt` FROM `trace".$id_trace."` ORDER BY  created_at ASC")
+        $result = mysqli_query($this->dblink, "SELECT MAX(`created_at`),`id_twt` FROM `notifications_trace".$id_trace."` ORDER BY  created_at ASC")
         or die(mysqli_error($this->dblink));
         return $result;
     }
