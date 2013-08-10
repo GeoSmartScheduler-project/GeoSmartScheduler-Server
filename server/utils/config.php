@@ -33,6 +33,6 @@ define("SINCE_ID", "0"); // Place your since_id parameter
 /*
  * User registration ID
  */
-define("USER_REGISTRATION_ID", "APA91bHrOz62rKPzSTjDDLDuVesbLV3ktdurCAq1_CZFub_gtc7Hst4ygUKn9G7ryiJuHY2r44Hy63j2LzdYWigaOZum1VbaMxAIisvaCbdXcTaiZTr4uMyALrAX0YgcsQfRAWrdebAegVAaaiU5UlArki1H0lq-d9OU8SSEBBsTeKtgnKXD5pE");
-define("USER_REGISTRATION_ID_2","APA91bEq8LlRLytMdiMpj3IAJCRU5NLQQx3EYdrQYQK_uIqZE9uwbqZR6bB2YZNjSSb40BX3yPB8hBY7j08ClwOWSjI6yuGT2zfyX5ltWvMtBgETChPJzypT2_WDpUzflkhCLzczByhJI5UXM-4u9aj-3mP8QDDAssTKzdIEG5uQN0mJnAW2_0c");
+define("WILDFIRE_REGISTRATION_ID", "APA91bFMaAM4pVQjBj8Ca7Tk7FN3ptPXxkpKK-AjOfcsfOddeqs2WGR4rboezWd-uqLSfOwraI_s3hYdJvTngYPxduNjEPSHQWa6JkiGuhW62LlnefSzcVP0RXzqRflxQB_8mxJu_F_8jD7ai4FKAr3H21fUqHAQ-A");
+define("SENSATION_REGISTRATION_ID","");
 ?>

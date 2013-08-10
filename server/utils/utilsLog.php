@@ -18,17 +18,17 @@
 
 Class log {
   //path of the log
-  const USER_ERROR_DIR = '/Logs/ServerLog/testTrace.log';
-  const GENERAL_ERROR_DIR = '/Logs/ServerLog/BWServer.log';
+  const USER_INFO_DIR = '/Logs/ServerLog/Test.log';
+  const GENERAL_ERROR_DIR = '/Logs/ServerLog/General.log';
 
  /*
   * User Errors
   */
-    public function user($msg,$username)
+    public function info($msg)
     {
     $date = date('d.m.Y h:i:s');
     $log =$date."|".time()."|". $msg."\n";
-    error_log($log, 3, self::USER_ERROR_DIR);
+    error_log($log, 3, self::USER_INFO_DIR);
     }
  /*
   * General Errors

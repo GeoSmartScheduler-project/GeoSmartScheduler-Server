@@ -21,52 +21,65 @@ $reg_id= mysqli_fetch_assoc($result);
 
 //create object to use pendingTweets functions
 $dbPendingTweetsFunctions = new DB_pendingTweets_Functions();
-//Load trace to run the test
 $dbTracesFunctions = new DB_Traces_Functions();
+//Load trace to run the test
 $trace = $dbTracesFunctions->getTraceOfTweets($id_trace);
 $Trace_nmbTweets = mysqli_num_rows($trace);
 
-//initialating  "sleep_time" and variables
+//If the notification_trace is empty or has les than 10 samples stop
+if ($Trace_nmbTweets <10){
+	error_log("Error loading notifications_trace number ".$id_trace." to start the test");
+	echo header("HTTP/1.1 404 Not Found");
+	exit;
+}
+//Set initial "sleep_time" and variables
 $sleep_time = 0.0;
 $i=0;
 $tweet=null;
 $CurrentTwtId= null;
+
+//START
+error_log("Test of notification_trace number ".$id_trace." strat \n");
+
+
 //Load each tweet of the trace is being used to run the test
 while ($tweet = $trace->fetch_assoc())
 {
-	//wait sleep_time and then remain the loop
+	//wait sleep_time and then continue the loop
 	//first time sleep_time is =0.0 and the loop does not sleep
 	time_sleep_until(time()+$sleep_time);
 	
 	//send tweet to gcm with the size of the tweet attached  
 	$registration_ids= array ($reg_id["gcm_regid"]);
-	$message= array("message"=> $tweet['id_twt'] ,"size"=>$tweet['size']);
+	$message= array("message"=> $tweet['id_twt'] ,"size"=>"2048");//$tweet['size']
 	$success=$gcm->send_notification($registration_ids, $message);
+	
 	//If the response is true, the notification was successfully delivered and we can store it in the pending queue
 	//Otherwise we stop the test
-	if ($success){
+	if (!$success){
 		//store tweet in pending tweets queue
-		$dbPendingTweetsFunctions->putPendingTweet($tweet['id_twt']);
-		//Log action of put in pending list
-		$log->user("Trace nº".$id_trace."| Tweet has been sent and stored in pending queue | tweet_id = ".$tweet['id_twt'], "Alberto");		
-	}
-	else{
-		//Imposible to start test
-		error_log("Unable to finish the trace number: ".$id_trace);
+		//$dbPendingTweetsFunctions->putPendingTweet($tweet['id_twt']);	
+		//Imposible to finish test
+		error_log("Unable to finish the notification_trace number: ".$id_trace);
 		echo header("HTTP/1.1 404 Not Found");
-		exit(-1);
+		exit;
 	}
+		
 	//load next sleep_time
 	$sleep_time = $tweet['time_to_next'];
 	$CurrentTwtId=$tweet['id_twt'];
 	$i++;
 }	
+
 //Release memory of the trace and response OK
 $trace->free();
 echo header("HTTP/1.0 200 OK");
+error_log("Test of notification_trace number ".$id_trace." has finished");
+exit;
 }
 else {
 	//Imposible to start test
 	echo header("HTTP/1.1 404 Not Found");
+	error_log("Unable to start test of notification_trace number ".$id_trace." has finished");
+	exit;
 }
-?>

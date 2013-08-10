@@ -95,6 +95,15 @@ class DB_GCM_Functions {
     	$result = mysqli_query($this->dblink, "SELECT `gcm_regid` FROM `gcm_users` WHERE `created_at` = (SELECT max(`created_at`) FROM `gcm_users`)");
     	return $result;
     }
+    
+    /**
+     * Delete user registration
+     */
+    
+ public function deleteUserInfo($gcm_regid) {
+    	$result = mysqli_query($this->dblink, "DELETE FROM `gcm_user` WHERE `gcm_regid`=".$gcm_regid);
+    	return $result;
+    }
 
 }
 
