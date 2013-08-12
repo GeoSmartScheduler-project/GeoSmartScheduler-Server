@@ -1,5 +1,5 @@
 <?php
-
+ini_set('display_errors', 1);
 /**
  * Description of GCM
  * This class contain methods to push notifications to a device through GCM Google service
@@ -60,6 +60,7 @@ class GCM {
 		else {
 			//Control the response looking for failures or canonicals id to handle the errors
 			$gcmResponse = json_decode($result,true);
+			error_log($gcmResponse);
 			if ($gcmResponse["failure"]!="0" || $gcmResponse["canonical_ids"]!="0"){
 				$gcmResults=$gcmResponse["results"];
 				for ($i=0; $i<count($gcmResults); $i++){

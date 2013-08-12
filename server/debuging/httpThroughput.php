@@ -1,5 +1,7 @@
 <?php
-$file = dirname(__FILE__).'/assets/file64K.txt';
+if (isset($_GET) && $_GET["file"]!=null){
+	
+$file = dirname(__FILE__).'/assets/'.$_GET["file"];
 if (file_exists($file)) {
 	header('HTTP/1.1 200 OK');
     header('Content-Description: File Transfer');
@@ -14,6 +16,5 @@ if (file_exists($file)) {
     flush();
     readfile($file);
 }
+}
     exit;
-    
-   
