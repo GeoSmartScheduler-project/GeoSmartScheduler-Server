@@ -37,11 +37,14 @@ while ($Num_Test < 2)
 	error_log("CODE.PHP|PROCCESSING...|Test number ".$Num_Test." has finished,  now post proccess the data generated");
 	//Write logs from android device
 
-	shell_exec("/home/alberto/adt-bundle-linux/sdk/platform-tools/adb logcat -d -v raw GSS-download-location:I *:S >/Logs/DownloadLocLog/Naive/dowLoc_log".$Num_Test.".log");
-	shell_exec("/home/alberto/adt-bundle-linux/sdk/platform-tools/adb logcat -d -v raw GSS-notifications:I *:S >/Logs/NotificationsLog/Naive/not_log".$Num_Test.".log");
-	shell_exec("/home/alberto/adt-bundle-linux/sdk/platform-tools/adb logcat -d -v raw GSS-download-time:I *:S >/Logs/DownloadLog/Naive/dow_log".$Num_Test.".log");
-	shell_exec("/home/alberto/adt-bundle-linux/sdk/platform-tools/adb logcat -d -v raw GSS-http-throughput:I *:S >/Logs/ThroughputLog/Naive/throughtput_log".$Num_Test.".log");
+	shell_exec("/home/alberto/adt-bundle-linux/sdk/platform-tools/adb logcat -d -v raw GSS-download-location:I *:S >/Logs/DownloadLocLog/Naive/10k/dowLoc_log".$Num_Test.".log");
+	shell_exec("/home/alberto/adt-bundle-linux/sdk/platform-tools/adb logcat -d -v raw GSS-notifications:I *:S >/Logs/NotificationsLog/Naive/10k/not_log".$Num_Test.".log");
+	shell_exec("/home/alberto/adt-bundle-linux/sdk/platform-tools/adb logcat -d -v raw GSS-download-time:I *:S >/Logs/DownloadLog/Naive/10k/dow_log".$Num_Test.".log");
+	shell_exec("/home/alberto/adt-bundle-linux/sdk/platform-tools/adb logcat -d -v raw GSS-http-throughput:I *:S >/Logs/ThroughputLog/Naive/10k/throughtput_log".$Num_Test.".log");
 	shell_exec("/home/alberto/adt-bundle-linux/sdk/platform-tools/adb logcat -c");
+	//Pull database from app to pc
+	shell_exec('/home/alberto/adt-bundle-linux/sdk/platform-tools/adb -d shell "run-as com.alberto.GeoSmartScheduler cat /data/data/com.alberto.GeoSmartScheduler/databases/NetworkMap > /sdcard/database/NetworkMap'.$Num_Test.'.sqlite"');
+	shell_exec('/home/alberto/adt-bundle-linux/sdk/platform-tools/adb pull /sdcard/database/NetworkMap'.$Num_Test.'.sqlite /Logs/DataBase/Naive/10k/');
 	//Change updates trace to be load by the test script and increase counter of test
 	//$trace++;
 	$Num_Test++;

@@ -71,6 +71,7 @@ class GCM {
 						$success = false;
 					}
 					if($arrayAux["message_id"]!=null && $arrayAux["registration_id"]!=null){
+						error_log("Updating gcm_users with the new registration_id of the user ".$arrayAux["registration_id"]);
 						$new_gcm_regid = $arrayAux["registration_id"];
 						$db1= new DB_GCM_Functions();
 						$db1->updateUserGCMid($registation_ids[$i], $new_gcm_regid);

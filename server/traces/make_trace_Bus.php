@@ -23,7 +23,7 @@ $datein= $row[0];
 $result=$DBtraces->getEndTime();
 $row = $result->fetch_array();
 $enddate=$row[0];
-$trace=30;
+$trace=26;
 
 while ($trace<31){
 
@@ -33,6 +33,7 @@ $SetOfTweets =$DBtraces->getTraceOfTweets_byinterval($datein,"9");
 $NumRows=mysqli_num_rows($SetOfTweets);
 if ($NumRows<10&&$NumRows>90){
 	if($NumRows==0){
+		
 		$date=date_sub(new DateTime($datein), new DateInterval('PT9M'));
 		$datein= $date->format('Y-m-d H:i:s');
 	}
@@ -41,7 +42,7 @@ if ($NumRows<10&&$NumRows>90){
 		$tweet = $SetOfTweets->fetch_assoc();
 		$datein=$tweet["created_at"];
 		$idtwt = $tweet["id_twt"];
-		$DBtraces->deleteRowTraceOfTweets($idtwt);
+		//$DBtraces->deleteRowTraceOfTweets($idtwt);
 	}
 	else{
 			$tweet = $SetOfTweets->fetch_assoc();
@@ -53,6 +54,7 @@ if ($NumRows<10&&$NumRows>90){
 else{
 	//Generate table to store notifications trace	
 $DBtraces->create_table_trace($trace);
+$time1=null;
 while ($tweet = $SetOfTweets->fetch_assoc())
 {
 	
@@ -60,6 +62,7 @@ while ($tweet = $SetOfTweets->fetch_assoc())
 	{
 		//inizialize parameters for first tweet of the trace
 		$time1 = $tweet["created_at"];
+		$datein = $time1;
 		$idtwt = $tweet["id_twt"];
 		$size1 = $tweet["size"];
 		
@@ -91,8 +94,8 @@ while ($tweet = $SetOfTweets->fetch_assoc())
 	}
 	
 }
-$date=date_sub(new DateTime($datein), new DateInterval('PT9M'));
-$datein= $date->format('Y-m-d H:i:s');
+//$date=date_sub(new DateTime($datein), new DateInterval('PT9M'));
+//$datein= $date->format('Y-m-d H:i:s');
 if ($enddate>$datein){
 exit;}
 $trace++;
