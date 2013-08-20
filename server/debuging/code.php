@@ -12,28 +12,28 @@ $Num_Test=1;
 $log=new log();
 
 //loop to make several test about 7200 seconds of execution of the script
-while ($Num_Test < 2)
+while ($Num_Test < 3)
 {
 	try {
 		// Open the BW file  to change the bandwidth using ipfw
 		// When we call this particular command, the rest of the script  will keep executing, not waiting for a response
-		//$cmd = "php ".$root."/test/bandwidth.php ".escapeshellarg($Num_Test)." > /dev/null 2>/dev/null &";
-		//shell_exec($cmd);
+		$cmd = "php ".$root."/test/bandwidth.php ".escapeshellarg($Num_Test)." > /dev/null 2>/dev/null &";
+		shell_exec($cmd);
 		//Start test loading test.php
 		$response = http_get("http://192.168.1.6/server/test/test.php?trace=".$Num_Test,array('time_out'=>7200),$info);
 
 		if ($info["response_code"] == 200) {
-			$log->info("Test number ".$Num_Test." has started|Bandwidth info: BW".$Num_Test.".log|Notifications trace: notification_trace".$Num_Test.".log|Sended file: rss.xml");
+			$log->info("Test number ".$Num_Test." has started|Bandwidth info: BW".$Num_Test.".log|Notifications trace: notification_trace".$Num_Test.".log|Sended file: file50.txt");
 		}
 		else {
-			//error_log("Unable to perform test of notification_trace number ".$Num_Test." with response code".$info["response_code"]);
+			error_log("Unable to perform test of notification_trace number ".$Num_Test." with response code".$info["response_code"]);
 			exit;
 		}
 	} catch (HttpException $ex) {
 		echo $ex;
 		exit;
 	}
-	sleep(60*3);
+	sleep(60*5);
 	error_log("CODE.PHP|PROCCESSING...|Test number ".$Num_Test." has finished,  now post proccess the data generated");
 	//Write logs from android device
 

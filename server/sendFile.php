@@ -1,5 +1,5 @@
 <?php
-$file = dirname(__FILE__).'/assets/file3M.txt';
+$file = dirname(__FILE__).'/assets/file50.txt';
 if (file_exists($file)) {
 	header('HTTP/1.1 200 OK');
     header('Content-Description: File Transfer');

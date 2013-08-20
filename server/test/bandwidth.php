@@ -1,4 +1,5 @@
 <?php
+set_time_limit(0);
 $Num_Test=null;
 if ( $argc > 1 ){
 	$Num_Test=$argv[1];
