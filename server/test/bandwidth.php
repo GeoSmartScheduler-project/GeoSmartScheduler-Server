@@ -8,7 +8,7 @@ if ( $argc > 1 ){
 	require_once($root.'/utils/utilsLog.php');
 	$log=new log();
 	//Create log file for server bandwidth
-	$logFile = '/Logs/ServerLog/BWServer'.$Num_Test.'.log';
+	$logFile = '/Logs/ServerLog/3M/BWServer'.$Num_Test.'.log';
 	if (!file_exists($logFile)){
 		fclose(fopen($logFile, "w+"));
 	}
