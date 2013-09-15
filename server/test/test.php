@@ -53,7 +53,7 @@ if(isset($_GET['trace']) && $_GET['trace']!=null){
 
 		//send tweet to gcm with the size of the tweet attached
 		$registration_ids= array ($reg_id["gcm_regid"]);
-		$message= array("message"=> $tweet['id_twt'] ,"size"=>"3145728", "gpsFile"=>"BusPath".$id_gpsFile.".txt");//$tweet['size']
+		$message= array("message"=> $tweet['id_twt'] ,"size"=>"102400", "gpsFile"=>"BusPath".$id_gpsFile.".txt");//$tweet['size']
 		$success=$gcm->send_notification($registration_ids, $message);
 
 		//If the response is true, the notification was successfully delivered and we can store it in the pending queue
