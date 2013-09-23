@@ -1,7 +1,7 @@
 <?php
 ini_set('display_errors', 1);
 ini_set('error_reporting', E_ERROR);
-set_time_limit(0);
+set_time_limit(760);
 $root=dirname(dirname(__FILE__));
 require_once($root.'/utils/config.php');
 require_once($root.'/dbQuery/db_traces_functions.php');
@@ -53,7 +53,7 @@ if(isset($_GET['trace']) && $_GET['trace']!=null){
 
 		//send tweet to gcm with the size of the tweet attached
 		$registration_ids= array ($reg_id["gcm_regid"]);
-		$message= array("message"=> $tweet['id_twt'] ,"size"=>"".filesize($root.'/assets/send/file.txt')."", "gpsFile"=>"BusPath".$id_gpsFile.".txt");//$tweet['size']
+		$message= array("message"=> $tweet['id_twt'] ,"size"=>"".filesize($root.'/assets/send/file.txt')."", "gpsFile"=>"FerryPath".$id_gpsFile.".txt");//$tweet['size']
 		$success=$gcm->send_notification($registration_ids, $message);
 
 		//If the response is true, the notification was successfully delivered and we can store it in the pending queue
@@ -79,9 +79,11 @@ if(isset($_GET['trace']) && $_GET['trace']!=null){
 
 	//Release memory of the trace and response OK
 	$trace->free();
-	echo header("HTTP/1.0 200 OK");
-	error_log("TEST.PHP|Test of notification_trace number ".$id_trace." has finished");
-	exit;
+	//echo header("HTTP/1.0 200 OK");
+	error_log("TEST.PHP|Test of notification_trace number ".$id_trace." has finished");	
+	//exit;
+	exit(header("Status: 200 OK"));
+
 }
 else {
 	//Imposible to start test

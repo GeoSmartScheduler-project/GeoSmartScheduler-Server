@@ -1,4 +1,5 @@
 <?php
+set_time_limit(30);
 $file = dirname(__FILE__).'/assets/send/file.txt';
 if (file_exists($file)) {
 	header('HTTP/1.1 200 OK');
